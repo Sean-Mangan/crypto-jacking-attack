@@ -23,6 +23,8 @@ body {
     font-style: normal;
     font-variant: small-caps;
     text-transform: uppercase;
+    user-select:none;
+    
 }
 
 .header{
