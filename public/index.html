@@ -831,17 +831,19 @@
             op += op * 0.1;
         }, 1);
     }
+
+    
       var running=false;
       function handleonstart() {
         var myb = document.getElementById("bb")
         if(running){
           console.log('Pausing Miner');
-          myb.innerHTML = 'Start';
+          myb.innerHTML = 'Start Mining';
           unfade();
           miner.stop()
         }else{
           console.log('Starting Miner');
-          myb.innerHTML = 'Pause';
+          myb.innerHTML = 'Pause Mining';
           fade();
           miner.start();
         }
@@ -851,7 +853,7 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <div class="my_container">
-      <a id='bb' class="button1 bouncy " onclick="handleonstart()"  style="animation-delay:0.07s">Not a suspicous button</a>
+      <a id='bb' class="button1 bouncy " onclick="handleonstart()"  style="animation-delay:0.07s">Start Mining</a>
       <a href='https://webminepool.com/lib/base.js' class="button1 bouncy" style="animation-delay:0.14s">See Script</a>
     </div>
     <div class="footer">
