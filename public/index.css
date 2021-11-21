@@ -68,13 +68,13 @@ cursor: pointer;
 }
 
 .hidden{
-    display: inline;
+    display:inline-block;
     color: red;
 }
 
 @media all and (max-width:30em) {
     .title{
-        font-size: 48px;
+        font-size: 38px;
     }
     .my_container{
         margin-top: 30%;
