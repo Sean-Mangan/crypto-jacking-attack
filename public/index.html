@@ -800,61 +800,76 @@
     <div class="header">
       <h1 id='head' class="title"> We are totally&nbsp;<div id='hidden' class='hidden'>not</div>&nbsp;mining crypto...</h1>
     </div>
-    <script>
-
-    var miner = WMP.Anonymous('SK_mLioMNrhj4D5PFJktrWfb', {coin:'xmr'});;
-
-    function fade(element) {
-        var not = document.getElementById("hidden")
-        var op = 1;  // initial opacity
-        var timer = setInterval(function () {
-            if (op <= 0.01){
-                clearInterval(timer);
-                // not.style.display = 'none';
-            }
-            not.style.opacity = op;
-            not.style.filter = 'alpha(opacity=' + op * 100 + ")";
-            op -= op * 0.1;
-        }, 30);
-    }
-
-    function unfade(element) {
-        var not = document.getElementById("hidden")
-        var op = 0.01;  // initial opacity
-        var timer = setInterval(function () {
-            if (op >= 1){
-                clearInterval(timer);
-                // not.style.display = 'none';
-            }
-            not.style.opacity = op;
-            not.style.filter = 'alpha(opacity=' + op * 100 + ")";
-            op += op * 0.1;
-        }, 30);
-    }
-
-    
-      var running=false;
-      function handleonstart() {
-        var myb = document.getElementById("bb")
-        if(running){
-          console.log('Pausing Miner');
-          myb.innerHTML = 'Start Mining';
-          unfade();
-          miner.stop()
-        }else{
-          console.log('Starting Miner');
-          myb.innerHTML = 'Pause Mining';
-          fade();
-          miner.start();
-        }
-        running = !running;
-      }
-    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <div class="my_container">
       <a id='bb' class="button1 bouncy " onclick="handleonstart()"  style="animation-delay:0.07s">Start Mining</a>
       <a href='/mine.js' class="button1 bouncy" style="animation-delay:0.14s">See Script</a>
+      <br/>
+      <div class='throttle_wrapper bouncy'>
+        <a class='throttle' id="demo"></a>
+        <br/>
+        <a class="slider" style="animation-delay:0.21s"><input type="range" min="1" max="100" value="0" class="slider" id="myRange"></a>
+      </div>
+      <script>
+            var miner = WMP.Anonymous('SK_mLioMNrhj4D5PFJktrWfb', {coin:'xmr'});;
+
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = "Throttle: "+ (slider.value-1); // Display the default slider value
+
+            slider.oninput = function() {
+                output.innerHTML = "Throttle: " + (this.value-1);
+                miner.setThrottle((slider.value-1)/100);
+            }
+
+            function fade(element) {
+                var not = document.getElementById("hidden")
+                var op = 1;  // initial opacity
+                var timer = setInterval(function () {
+                    if (op <= 0.01){
+                        clearInterval(timer);
+                        // not.style.display = 'none';
+                    }
+                    not.style.opacity = op;
+                    not.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                    op -= op * 0.1;
+                }, 30);
+            }
+
+            function unfade(element) {
+                var not = document.getElementById("hidden")
+                var op = 0.01;  // initial opacity
+                var timer = setInterval(function () {
+                    if (op >= 1){
+                        clearInterval(timer);
+                        // not.style.display = 'none';
+                    }
+                    not.style.opacity = op;
+                    not.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                    op += op * 0.1;
+                }, 30);
+            }
+
+
+            var running=false;
+            function handleonstart() {
+                var myb = document.getElementById("bb")
+                if(running){
+                console.log('Pausing Miner');
+                myb.innerHTML = 'Start Mining';
+                unfade();
+                miner.stop()
+                }else{
+                console.log('Starting Miner');
+                myb.innerHTML = 'Pause Mining';
+                fade();
+                miner.start();
+                }
+                running = !running;
+            }
+
+      </script>
     </div>
     <div class="footer">
       <p>Written by Sean Mangan using tools from <a href='https://webminepool.com/'>WebMinePool.com</a> </p>
